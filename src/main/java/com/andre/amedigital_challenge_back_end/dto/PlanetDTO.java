@@ -18,8 +18,7 @@ public class PlanetDTO {
     public PlanetDTO(){
     }
 
-    public PlanetDTO(Long id, String name, String climate, String terrain, int appearedInFilms) {
-        this.id = id;
+    public PlanetDTO(String name, String climate, String terrain, int appearedInFilms) {
         this.name = name;
         this.climate = climate;
         this.terrain = terrain;

@@ -1,5 +1,6 @@
 package com.andre.amedigital_challenge_back_end.entities;
 
+import com.andre.amedigital_challenge_back_end.dto.PlanetDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,14 @@ public class Planet {
         this.climate = climate;
         this.terrain = terrain;
         this.appearedInFilms = appearedInFilms;
+    }
+
+    public Planet(PlanetDTO data) {
+        this.id = data.getId();
+        this.name = data.getName();
+        this.climate = data.getClimate();
+        this.terrain = data.getTerrain();
+        this.appearedInFilms = data.getAppearedInFilms();
     }
 
     public Long getId() {

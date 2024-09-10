@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -25,7 +27,7 @@ public class PlanetService {
 
     public PlanetDTO findById(Long id) {
         Planet entity = repository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Id not found " + id));
+                () -> new EntityNotFoundException("Id not found: " + id));
 
         return new PlanetDTO(entity);
 
@@ -33,7 +35,7 @@ public class PlanetService {
 
     public PlanetDTO findByName(String name) {
         Planet entity = repository.findByName(name).orElseThrow(
-                () -> new EntityNotFoundException("Name not found " + name));
+                () -> new EntityNotFoundException("Name not found: " + name));
         return new PlanetDTO(entity);
 
     }
@@ -56,13 +58,12 @@ public class PlanetService {
        return repository.findAll().stream().map(PlanetDTO::new).toList();
     }
 
-    public int getStarWarsAPI(String planetName) {
-        String url = "https://swapi.dev/api/planets/?search=" + planetName;
+    public int getStarWarsAPI(String planetName){
         int appearedInFilms = 0;
 
-        ResponseEntity<StarWarsResponseDTO> responseEntity = restTemplate.getForEntity(url,StarWarsResponseDTO.class);
+        String url = "https://swapi.dev/api/planets/?search=" + planetName;
+        ResponseEntity<StarWarsResponseDTO> responseEntity = restTemplate.getForEntity(url, StarWarsResponseDTO.class);
         StarWarsResponseDTO responseBody = responseEntity.getBody();
-
 
         if(!responseBody.getResults().isEmpty()) {
             appearedInFilms = responseBody.getResults().get(0).getFilms().size();
