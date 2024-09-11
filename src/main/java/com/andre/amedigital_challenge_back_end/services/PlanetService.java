@@ -40,11 +40,12 @@ public class PlanetService {
 
     }
 
-    public void addPlanet(PlanetDTO planetDTO){
+    public Planet addPlanet(PlanetDTO planetDTO){
         Planet entity = new Planet();
         BeanUtils.copyProperties(planetDTO, entity);
         entity.setAppearedInFilms(getStarWarsAPI(planetDTO.getName()));
         repository.save(entity);
+        return entity;
     }
 
     public void deletePlanet(Long id){
