@@ -4,7 +4,6 @@ import com.andre.amedigital_challenge_back_end.entities.Planet;
 import org.springframework.stereotype.Component;
 
 
-import java.util.Optional;
 
 @Component
 public class PlanetDTO {
@@ -33,13 +32,7 @@ public class PlanetDTO {
         appearedInFilms = planet.getAppearedInFilms();
     }
 
-    public PlanetDTO(Optional<Planet> planet) {
-        id = planet.get().getId();
-        name = planet.get().getName();
-        climate = planet.get().getClimate();
-        terrain = planet.get().getTerrain();
-        appearedInFilms = planet.get().getAppearedInFilms();
-    }
+
 
 
     public Long getId() {
