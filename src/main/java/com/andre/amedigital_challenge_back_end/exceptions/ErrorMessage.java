@@ -1,5 +1,7 @@
 package com.andre.amedigital_challenge_back_end.exceptions;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
@@ -9,10 +11,15 @@ public class ErrorMessage implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(example =  "2024-09-17T02:01:18.376615500Z")
     private Instant timestamp;
+    @Schema(example =  "404")
     private Integer status;
+    @Schema(example =  "Resource not found")
     private String error;
+    @Schema(example =  "Id not found: 1")
     private String message;
+    @Schema(example =  "/planet/1")
     private String path;
 
     public ErrorMessage(){

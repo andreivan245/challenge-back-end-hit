@@ -34,4 +34,15 @@ public class RestExceptionHandler {
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
+
+    @ExceptionHandler(EntityNameAlreadyExistsException.class)
+    public ResponseEntity<ErrorMessage> entityListNotFound(EntityNameAlreadyExistsException e, HttpServletRequest request){
+        ErrorMessage err = new ErrorMessage();
+        err.setTimestamp(Instant.now());
+        err.setStatus(HttpStatus.BAD_REQUEST.value());
+        err.setError("Resource cannot be added again");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
 }

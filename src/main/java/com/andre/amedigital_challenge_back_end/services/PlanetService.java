@@ -5,6 +5,7 @@ import com.andre.amedigital_challenge_back_end.entities.Planet;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityListNotFoundException;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityNotFoundException;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityNotSavedException;
+import com.andre.amedigital_challenge_back_end.exceptions.handler.EntityNameAlreadyExistsException;
 import com.andre.amedigital_challenge_back_end.repositories.PlanetRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,13 @@ public class PlanetService {
     }
 
     public Planet addPlanet(PlanetDTO planetDTO){
+
+        if(repository.existsByName(planetDTO.getName())){
+            throw new EntityNameAlreadyExistsException("Error when trying to add resource again");
+        }
+
         Planet entityPlanet = new Planet();
+
 
         BeanUtils.copyProperties(planetDTO, entityPlanet);
         try {

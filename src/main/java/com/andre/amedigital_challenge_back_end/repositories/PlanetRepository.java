@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PlanetRepository extends JpaRepository<Planet, Long> {
     Optional<Planet> findByName(String name);
+    Boolean existsByName(String name);
 }

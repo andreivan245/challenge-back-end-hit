@@ -1,10 +1,16 @@
 package com.andre.amedigital_challenge_back_end.controllers;
 
 import com.andre.amedigital_challenge_back_end.dto.PlanetDTO;
+import com.andre.amedigital_challenge_back_end.swagger.ErrorMessageSwaggerAddPlanetNameExists;
+import com.andre.amedigital_challenge_back_end.swagger.ErrorMessageSwaggerGetName;
+import com.andre.amedigital_challenge_back_end.swagger.PlanetDTOSwaggerPostRequestBody;
+import com.andre.amedigital_challenge_back_end.exceptions.ErrorMessage;
 import com.andre.amedigital_challenge_back_end.services.PlanetService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +34,9 @@ public class PlanetController {
     @Operation(description = "Search for planet by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return planet"),
-            @ApiResponse(responseCode = "404", description = "No planet with this id was found")
+            @ApiResponse(responseCode = "404", description = "No planet with this id was found", content =  @Content(
+                    schema = @Schema(implementation = ErrorMessage.class)
+                    ) )
     })
     @GetMapping(value = "/{id}")
     public PlanetDTO findById(@PathVariable Long id) {
@@ -38,7 +46,9 @@ public class PlanetController {
     @Operation(description = "Search for planet by name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return planet"),
-            @ApiResponse(responseCode = "404", description = "No planet with this name was found")
+            @ApiResponse(responseCode = "404", description = "No planet with this name was found",content = @Content(
+                    schema = @Schema(implementation = ErrorMessageSwaggerGetName.class)
+            ) )
     })
     @GetMapping(value = "/name/{name}")
     public PlanetDTO findByName(@PathVariable String name) {
@@ -48,8 +58,13 @@ public class PlanetController {
     @Operation(description = "Add planet to database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Planet added successfully"),
-            @ApiResponse(responseCode = "500", description = "Unable to add planet")
+            @ApiResponse(responseCode = "500", description = "Unable to add planet", content = @Content(
+                    schema = @Schema(implementation = ErrorMessageSwaggerAddPlanetNameExists.class)
+            ) )
     })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, content = @Content(
+            schema = @Schema(implementation = PlanetDTOSwaggerPostRequestBody.class)
+    ))
     @PostMapping
     public void addPlanet(@RequestBody @Validated PlanetDTO planetDTO) {
         service.addPlanet(planetDTO);

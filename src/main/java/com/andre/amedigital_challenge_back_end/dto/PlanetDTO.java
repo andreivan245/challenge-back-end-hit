@@ -1,17 +1,22 @@
 package com.andre.amedigital_challenge_back_end.dto;
 
 import com.andre.amedigital_challenge_back_end.entities.Planet;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.stereotype.Component;
-
 
 
 @Component
 public class PlanetDTO {
 
+    @Schema(example = "1")
     private Long id;
+    @Schema(example = "Tatooine")
     private String name;
+    @Schema(example = "Arid")
     private String climate;
+    @Schema(example = "Desert")
     private String terrain;
+    @Schema(example = "5")
     private int appearedInFilms;
 
     public PlanetDTO(){

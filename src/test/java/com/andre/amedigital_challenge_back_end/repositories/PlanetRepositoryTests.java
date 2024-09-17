@@ -30,7 +30,7 @@ public class PlanetRepositoryTests {
 
 
     @Test
-    @DisplayName("Should get planet successfully from DB")
+    @DisplayName("Should get planet successfully from Database")
     void findByNameSuccess() {
 
         PlanetDTO data = new PlanetDTO(NAME,CLIMATE,TERRAIN,APPEAREDINFILMS);
@@ -42,7 +42,7 @@ public class PlanetRepositoryTests {
     }
 
     @Test
-    @DisplayName("Should not get the planet successfully from DB")
+    @DisplayName("Should not get the planet successfully from Database")
     void findByNameFailure() {
 
         Optional<Planet> foundedPlanet = this.planetRepository.findByName(NAME);
@@ -51,8 +51,31 @@ public class PlanetRepositoryTests {
     }
 
 
+    @Test
+    @DisplayName("Should get planet successfully from Database")
+    void existsByNameTrue() {
+
+        PlanetDTO data = new PlanetDTO(NAME,CLIMATE,TERRAIN,APPEAREDINFILMS);
+        this.createPlanet(data);
+
+        Boolean planetExists = this.planetRepository.existsByName(NAME);
+
+        assertThat(planetExists).isTrue();
+
+    }
+
+    @Test
+    @DisplayName("Should not get the planet successfully from Database")
+    void existsByNameFalse() {
+
+        Boolean planetExists = this.planetRepository.existsByName(NAME);
+
+        assertThat(planetExists).isFalse();
+    }
+
     private void createPlanet(PlanetDTO data){
         Planet newPlanet = new Planet(data);
         this.entityManager.persist(newPlanet);
     }
+
 }

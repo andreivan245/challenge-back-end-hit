@@ -5,6 +5,7 @@ import com.andre.amedigital_challenge_back_end.entities.Planet;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityListNotFoundException;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityNotFoundException;
 import com.andre.amedigital_challenge_back_end.exceptions.EntityNotSavedException;
+import com.andre.amedigital_challenge_back_end.exceptions.handler.EntityNameAlreadyExistsException;
 import com.andre.amedigital_challenge_back_end.repositories.PlanetRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -106,6 +107,8 @@ class PlanetServiceTest {
         assertEquals("Name not found: " + NAME, exception.getMessage());
     }
 
+
+
     @Test
     @DisplayName("Should save the planet in the database")
     void addPlanetSuccess() {
@@ -129,6 +132,18 @@ class PlanetServiceTest {
         Exception exception = assertThrows(EntityNotSavedException.class, () -> planetService.addPlanet(planetDTO));
 
         assertEquals("Error when trying to save to database", exception.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("Should not save the planet in the database and should throw exception successfully because the name of the planet has already been saved in the database")
+    void addPlanetWithAlreadySavedName() {
+        when(repository.existsByName(anyString())).thenReturn(true);
+        when(repository.save(any())).thenThrow(new EntityNameAlreadyExistsException("Error when trying to add resource again"));
+
+        Exception exception = assertThrows(EntityNameAlreadyExistsException.class, () -> planetService.addPlanet(planetDTO));
+
+        assertEquals("Error when trying to add resource again", exception.getMessage());
 
     }
 
