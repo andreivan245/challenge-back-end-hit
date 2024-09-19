@@ -1,4 +1,4 @@
-# Solução Challenge Back-End
+# Challenge Back-End
 
 Dando continuidade ao nosso processo, temos um desafio para te propor! \o/
 
@@ -23,3 +23,24 @@ Funcionalidades desejadas:
 
 **Linguagens que usamos:** Kotlin, Scala, Java  
 **Bancos que usamos:**  PostgreSQL-11 with JSONB
+
+# Solução
+A solução para o desafio da Ame Digital foi feita utilizando Spring Boot e o banco de dados PostgreSQL-11 para o ambiente de produção e o H2 para os testes unitários. Toda a documentação da API foi toda feita no Swagger.
+
+## Tecnologias
+- Spring Boot
+- Spring MVC
+- Spring Data JPA
+- Swagger
+- PostgreSQL
+- H2 Database
+- JUnit 5
+- Mockito
+## Práticas
+- SOLID
+- API REST
+- Utilização de DTO
+- Injeção de Dependências
+- Exception Handler
+- Documentação pelo Swagger
+- Testes Unitários
