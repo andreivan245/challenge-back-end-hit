@@ -23,7 +23,6 @@ Funcionalidades desejadas:
 
 **Linguagens que usamos:** Kotlin, Scala, Java  
 **Bancos que usamos:**  PostgreSQL-11 with JSONB
-
 # Solução
 A solução para o desafio da Ame Digital foi feita utilizando Spring Boot e o banco de dados PostgreSQL-11 para o ambiente de produção e o H2 para os testes unitários. Toda a documentação da API foi toda feita no Swagger.
 
